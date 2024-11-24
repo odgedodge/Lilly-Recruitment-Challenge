@@ -57,12 +57,62 @@ fetchMedicineDetails();
 
 document.addEventListener('DOMContentLoaded', function () {
     const deleteButton = document.getElementById('delete-button');
+    const updateButton = document.getElementById('update-button');
+    const updateFormContainer = document.getElementById('update-form-container');
+    const updateForm = document.getElementById('update-form');
     console.log(deleteButton);  // Verify button is found
 
     if (deleteButton) {
         deleteButton.addEventListener('click', deleteMedicine);
     } else {
         console.error('Delete button not found');
+    }
+
+    if (updateButton) {
+        updateButton.addEventListener('click', function () {
+            updateFormContainer.style.display = 'block';  // Show the update form
+        });
+    } else {
+        console.error('Update button not found');
+    }
+
+    if (updateForm) {
+        updateForm.addEventListener('submit', async function (event) {
+            event.preventDefault();  // Prevent the default form submission behavior
+
+            const newPrice = parseFloat(document.getElementById('new-price').value);
+            if (isNaN(newPrice)) {
+                alert('Please provide a valid price.');
+                return;
+            }
+
+            const medicineName = decodeURIComponent(window.location.pathname.split('/medicine/')[1]);
+
+            // Send the updated price to the backend via POST request
+            try {
+                const response = await fetch('/update', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        'name': medicineName,
+                        'price': newPrice
+                    }),
+                });
+
+                const data = await response.json();
+                if (data.message) {
+                    alert(data.message);
+                    window.location.reload();  // Reload the page to update the details
+                } else {
+                    alert('Failed to update medicine.');
+                }
+            } catch (error) {
+                console.error('Error updating medicine:', error);
+                alert('An error occurred while updating the medicine.');
+            }
+        });
     }
 });
 
