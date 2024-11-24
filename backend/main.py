@@ -94,6 +94,10 @@ def create_med(name: str = Form(...), price: float = Form(...)):
         
     return {"message": f"Medicine created successfully with name: {name}"}
 
+@app.get("/create-medicine")
+async def show_create_medicine_form():
+    return FileResponse('../frontend/create_medicine.html')
+
 @app.post("/update")
 def update_med(name: str = Form(...), price: float = Form(...)):
     """

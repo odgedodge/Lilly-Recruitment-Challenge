@@ -1,5 +1,4 @@
-
-// Function to fetch medicines on main page
+// Function to fetch medicines on the main page
 async function fetchMedicines() {
     try {
         const response = await fetch('/medicines');
@@ -44,7 +43,6 @@ async function fetchMedicineDetails() {
             const name = data.name || "Unknown Medicine";
             const price = data.price !== null ? `£${data.price}` : "Price not available";
             document.getElementById('medicine-details').innerHTML = `
-
                 <h2>${name}</h2>
                 <p>${price}</p>
             `;
@@ -54,5 +52,44 @@ async function fetchMedicineDetails() {
     }
 }
 
-// Fetch details on page load
-fetchMedicineDetails();
+// Add event listener for form submission
+document.getElementById('create-form').addEventListener('submit', async function (event) {
+    event.preventDefault();  // Prevent the default form submission behavior
+
+    // Get form data
+    const name = document.getElementById('medicine-name').value;
+    const price = parseFloat(document.getElementById('medicine-price').value);
+
+    // Validate inputs
+    if (!name || isNaN(price)) {
+        alert('Please provide valid medicine name and price.');
+        return;
+    }
+
+    // Send data to the backend via POST request
+    try {
+        const response = await fetch('/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',  // Ensure proper encoding
+            },
+            body: new URLSearchParams({
+                'name': name,
+                'price': price
+            }),
+        });
+
+        const data = await response.json();
+
+        if (data.message) {
+            alert('Medicine added successfully!');
+            // Redirect back to the index page or refresh the page
+            window.location.href = "/";  // This redirects the user back to the main page
+        } else {
+            alert('Failed to add medicine.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while adding the medicine.');
+    }
+});
