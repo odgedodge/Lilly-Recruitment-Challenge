@@ -13,13 +13,24 @@ async function fetchMedicines() {
 
         const list = document.getElementById('medicine-list');
         list.innerHTML = ""; // Clear the list in case of re-fetch
+
+        // Iterate over the medicines and create list items
         data.medicines.forEach(med => {
             const item = document.createElement('li');
             const name = med.name || "Unknown Medicine";
             const price = med.price !== null ? `£${med.price}` : "Price not available";
 
-            item.innerHTML = `<strong>${name}</strong> - ${price} <a href="/medicine/${encodeURIComponent(name)}" class="view-button">View Details</a>`;
-            list.appendChild(item);
+            // Create the clickable link for the medicine name
+            const link = document.createElement('a');
+            link.href = `/medicine/${encodeURIComponent(name)}`;  // URL to the medicine details page
+            link.textContent = name;
+            link.classList.add('medicine-name');  // Add a styling class for the medicine name
+
+            // Add the medicine name link and price to the list item
+            item.appendChild(link);
+            item.innerHTML += ` - ${price}`;  // Append the price after the medicine name link
+
+            list.appendChild(item);  // Add the item to the medicine list
         });
     } catch (error) {
         console.error('Error fetching medicines:', error);
@@ -54,6 +65,7 @@ async function fetchMedicineDetails() {
 
 fetchMedicineDetails();
 
+// Update and Delete Functionalities
 
 document.addEventListener('DOMContentLoaded', function () {
     const deleteButton = document.getElementById('delete-button');

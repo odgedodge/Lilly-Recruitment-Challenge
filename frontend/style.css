@@ -31,6 +31,170 @@ body {
 
 /* ---- Your custom styles below ---- */
 
-#page-name {
+/* Header Styling */
+header#page-name {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header#page-name h1 {
+    font-size: 36px;
+    color: #007BFF;
+}
+
+/* Medicine Details Section */
+#medicine-details {
+    text-align: center;
+    background-color: #fff;
     padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#medicine-details h2 {
+    font-size: 28px;
+    color: #333;
+}
+
+#medicine-details p {
+    font-size: 20px;
+    color: #555;
+}
+
+/* Button Styling */
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin: 10px 0;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Update Form Styling */
+#update-form-container {
+    display: none;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+#update-form-container h3 {
+    font-size: 22px;
+    color: #007BFF;
+}
+
+#update-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#update-form input {
+    font-size: 16px;
+    padding: 8px;
+    margin: 10px 0;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+#update-form button {
+    background-color: #28a745;
+}
+
+#update-form button:hover {
+    background-color: #218838;
+}
+
+/* Back Button */
+.back-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #6c757d;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #5a6268;
+}
+
+/* Styling for the Create New Medicine link to match button styles */
+.create-button {
+    display: inline-block;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+/* Hover effect for the Create New Medicine link */
+.create-button:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for the clickable medicine name */
+.medicine-name {
+    font-size: 18px;
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+/* Styling for the medicine list */
+#medicine-list {
+    list-style: none; 
+    padding-left: 0;  
+}
+
+#medicine-list li {
+    margin: 15px 0;  
+    font-size: 16px;  
+}
+
+/* Hover effect for the medicine name */
+.medicine-name:hover {
+    color: #0056b3;  
+}
+
+/* Active state for when the link is clicked */
+.medicine-name:active {
+    color: #004085;  
+}
+
+/* Styling for the price */
+#medicine-list li span {
+    font-size: 16px;    
+}
+
+/* Layout and Centering */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
