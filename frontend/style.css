@@ -119,6 +119,7 @@ button:hover {
 
 #delete-button {
     margin-bottom: 10px; /* Adds gap below the delete button */
+    background-color: #C92121;
 }
 
 /* Create Form Styling */
