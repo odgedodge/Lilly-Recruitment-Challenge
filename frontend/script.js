@@ -52,6 +52,56 @@ async function fetchMedicineDetails() {
     }
 }
 
+fetchMedicineDetails();
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const deleteButton = document.getElementById('delete-button');
+    console.log(deleteButton);  // Verify button is found
+
+    if (deleteButton) {
+        deleteButton.addEventListener('click', deleteMedicine);
+    } else {
+        console.error('Delete button not found');
+    }
+});
+
+async function deleteMedicine() {
+    console.log('Delete button clicked');  // Debugging log
+
+    const medicineName = decodeURIComponent(window.location.pathname.split('/medicine/')[1]);
+    console.log('Medicine to delete:', medicineName);
+
+    const confirmation = confirm("Are you sure you want to delete this medicine?");
+    if (!confirmation) return;
+
+    try {
+        const response = await fetch(`/delete`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',  // Ensure proper encoding
+            },
+            body: new URLSearchParams({
+                'name': medicineName  // Sending name as form data
+            }),
+        });
+
+        const data = await response.json();
+        console.log(data);  // Check the response
+
+        if (data.message) {
+            alert(data.message);
+            window.location.href = "/"; // Redirect to the main page after deleting
+        } else {
+            alert('Failed to delete medicine.');
+        }
+    } catch (error) {
+        console.error('Error deleting medicine:', error);
+        alert('An error occurred while deleting the medicine.');
+    }
+}
+
+
 // Add event listener for form submission
 document.getElementById('create-form').addEventListener('submit', async function (event) {
     event.preventDefault();  // Prevent the default form submission behavior
