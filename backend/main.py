@@ -69,6 +69,10 @@ def get_single_med(name: str):
                 return med
     return {"error": "Medicine not found"}
 
+@app.get("/medicine/{name}")
+async def get_single_med(name: str):
+    return FileResponse('../frontend/single_medicine.html')
+
 @app.post("/create")
 def create_med(name: str = Form(...), price: float = Form(...)):
     """
