@@ -30,3 +30,7 @@ body {
 }
 
 /* ---- Your custom styles below ---- */
+
+#page-name {
+    padding: 20px;
+}

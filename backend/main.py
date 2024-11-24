@@ -1,5 +1,7 @@
 from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 """
 This module defines a FastAPI application for managing a list of medicines.
 It provides endpoints to retrieve all medicines, retrieve a single medicine by name,
@@ -24,6 +26,9 @@ import json
 
 app = FastAPI()
 
+# Serve static files from the "frontend" directory
+app.mount("/static", StaticFiles(directory="../frontend"), name="static")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -31,6 +36,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/")
+async def read_index():
+    return FileResponse('../frontend/index.html')
 
 @app.get("/medicines")
 def get_all_meds():
